@@ -24,6 +24,9 @@ apps:
 parts:
   protobuf:
     plugin: autotools
+    build-packages:
+      - unzip
+      - curl
     stage-packages: []
     source: https://github.com/google/protobuf/archive/v3.3.0.tar.gz
   protoc-gen-go:
