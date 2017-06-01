@@ -1,0 +1,32 @@
+name: protobuf
+version: 3.3.0
+summary: Protocol Buffers compiler
+description: >
+  Protocol Buffers (a.k.a., protobuf) are Google's language-neutral,
+  platform-neutral, extensible mechanism for serializing structured
+  data. You can find protobuf's documentation at
+  https://developers.google.com/protocol-buffers/
+type: app
+confinement: classic
+grade: stable
+apps:
+  protoc:
+    command: bin/protoc
+    aliases:
+      - protoc
+    environment:
+      PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
+      LD_LIBRARY_PATH: $SNAP_LIBRARY_PATH:$SNAP/lib:$LD_LIBRARY_PATH
+  protoc-gen-go:
+    command: bin/protoc-gen-go
+    aliases:
+      - protoc-gen-go
+parts:
+  protobuf:
+    plugin: autotools
+    stage-packages: []
+    source: https://github.com/google/protobuf/archive/v3.3.0.tar.gz
+  protoc-gen-go:
+    plugin: go
+    go-packages:
+      - github.com/golang/protobuf/protoc-gen-go
