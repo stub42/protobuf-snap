@@ -1,5 +1,7 @@
 # Protobuf Snap
 
+[![Snap Status](https://build.snapcraft.io/badge/stub42/protobuf-snap.svg)](https://build.snapcraft.io/user/stub42/protobuf-snap)
+
 This is snap packaging of the Protocol Buffers compiler,
 from https://github.com/google/protobuf.
 
