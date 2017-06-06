@@ -1,11 +1,13 @@
 name: protobuf
-version: 3.3.0
+version: unset
 summary: Protocol Buffers compiler
 description: >
   Protocol Buffers (a.k.a., protobuf) are Google's language-neutral,
   platform-neutral, extensible mechanism for serializing structured
   data. You can find protobuf's documentation at
   https://developers.google.com/protocol-buffers/
+version-script: |
+  git -C parts/protobuf/src describe --dirty --always | sed -r 's/v(.*)/\1/g'
 type: app
 confinement: classic
 grade: stable
@@ -28,7 +30,9 @@ parts:
       - unzip
       - curl
     stage-packages: []
-    source: https://github.com/google/protobuf/archive/v3.3.0.tar.gz
+    source: https://github.com/google/protobuf.git
+    source-type: git
+    #source-tag: v3.3.0
   protoc-gen-go:
     plugin: go
     go-packages:
