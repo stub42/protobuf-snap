@@ -7,7 +7,7 @@ description: >
   data. You can find protobuf's documentation at
   https://developers.google.com/protocol-buffers/
 version-script: |
-  git -C parts/protobuf/src describe --dirty --always | sed -r 's/v(.*)/\1/g'
+  git -C parts/protobuf/src describe --dirty --always --tags | sed -r 's/v(.*)/\1/g'
 type: app
 confinement: classic
 grade: stable
@@ -32,7 +32,7 @@ parts:
     stage-packages: []
     source: https://github.com/google/protobuf.git
     source-type: git
-    #source-tag: v3.3.0
+    source-tag: v3.3.2
   protoc-gen-go:
     plugin: go
     go-packages:
