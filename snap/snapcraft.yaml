@@ -9,13 +9,16 @@ description: >
 version-script: |
   git -C parts/protobuf/src describe --dirty --always --tags | sed -r 's/v(.*)/\1/g'
 type: app
-confinement: classic
+confinement: strict
 grade: stable
 apps:
   protoc:
     command: bin/protoc
     aliases:
       - protoc
+    plugs:
+      - home
+      - removable-media
     environment:
       PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
       LD_LIBRARY_PATH: $SNAP_LIBRARY_PATH:$SNAP/lib:$LD_LIBRARY_PATH
@@ -33,7 +36,7 @@ parts:
     source: https://github.com/google/protobuf.git
     source-type: git
     # No tag builds trunk for edge channel
-    source-tag: v3.4.1
+    source-tag: v3.5.1
   protoc-gen-go:
     plugin: go
     go-packages:
