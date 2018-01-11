@@ -9,16 +9,16 @@ description: >
 version-script: |
   git -C parts/protobuf/src describe --dirty --always --tags | sed -r 's/v(.*)/\1/g'
 type: app
-confinement: strict
+confinement: classic  # classic to allow protoc to call plugins
 grade: stable
 apps:
   protoc:
     command: bin/protoc
     aliases:
       - protoc
-    plugs:
-      - home
-      - removable-media
+#     plugs:
+#       - home
+#       - removable-media
     environment:
       PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
       LD_LIBRARY_PATH: $SNAP_LIBRARY_PATH:$SNAP/lib:$LD_LIBRARY_PATH
