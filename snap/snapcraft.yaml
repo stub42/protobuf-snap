@@ -36,7 +36,7 @@ parts:
     source: https://github.com/google/protobuf.git
     source-type: git
     # No tag builds trunk for edge channel
-    source-tag: v3.6.0
+    source-tag: v3.6.1
   protoc-gen-go:
     plugin: go
     go-packages:
