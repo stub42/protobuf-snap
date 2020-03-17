@@ -9,6 +9,7 @@ description: >
 version-script: |
   git -C parts/protobuf/src describe --dirty --always --tags | sed -r 's/v(.*)/\1/g'
 type: app
+# base: core18
 confinement: classic  # classic to allow protoc to call plugins
 grade: stable
 apps:
@@ -33,10 +34,11 @@ parts:
       - unzip
       - curl
     stage-packages: []
-    source: https://github.com/google/protobuf.git
+    # source: https://github.com/protocolbuffers/protobuf/releases/download/v3.11.4/protobuf-all-3.11.4.tar.gz
+    source: https://github.com/protocolbuffers/protobuf.git
     source-type: git
-    # No tag builds trunk for edge channel
-    source-tag: v3.9.0
+    # source-branch: 3.11.x
+    source-tag: v3.11.4
   protoc-gen-go:
     plugin: go
     go-packages:
