@@ -38,7 +38,7 @@ parts:
     source: https://github.com/protocolbuffers/protobuf.git
     source-type: git
     # source-branch: 3.11.x
-    source-tag: v3.11.4
+    source-tag: v3.14.0
   protoc-gen-go:
     plugin: go
     go-packages:
