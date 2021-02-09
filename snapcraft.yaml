@@ -1,45 +1,46 @@
 name: protobuf
-version: unset
 summary: Protocol Buffers compiler
 description: >
   Protocol Buffers (a.k.a., protobuf) are Google's language-neutral,
   platform-neutral, extensible mechanism for serializing structured
   data. You can find protobuf's documentation at
   https://developers.google.com/protocol-buffers/
-version-script: |
-  git -C parts/protobuf/src describe --dirty --always --tags | sed -r 's/v(.*)/\1/g'
+adopt-info: protobuf
 type: app
-# base: core18
+base: core20
 confinement: classic  # classic to allow protoc to call plugins
 grade: stable
 apps:
   protoc:
     command: bin/protoc
-    aliases:
-      - protoc
-#     plugs:
-#       - home
-#       - removable-media
     environment:
-      PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
+      PATH: $SNAP/bin:$PATH
       LD_LIBRARY_PATH: $SNAP_LIBRARY_PATH:$SNAP/lib:$LD_LIBRARY_PATH
   protoc-gen-go:
     command: bin/protoc-gen-go
-    aliases:
-      - protoc-gen-go
 parts:
   protobuf:
     plugin: autotools
     build-packages:
       - unzip
       - curl
-    stage-packages: []
-    # source: https://github.com/protocolbuffers/protobuf/releases/download/v3.11.4/protobuf-all-3.11.4.tar.gz
     source: https://github.com/protocolbuffers/protobuf.git
     source-type: git
-    # source-branch: 3.11.x
     source-tag: v3.14.0
+    override-pull: |
+      snapcraftctl pull
+      GIT_VER=$(git describe --dirty --always --tags | sed -r 's/v(.*)/\1/g')
+      echo Pulled version $GIT_VER
+      snapcraftctl set-version $GIT_VER
+    autotools-configure-parameters:
+      - "--prefix=/"
+    stage:
+      - bin
+      - include
+      - lib
   protoc-gen-go:
     plugin: go
-    go-packages:
-      - github.com/golang/protobuf/protoc-gen-go
+    go-channel: latest/stable
+    source: https://github.com/golang/protobuf.git
+    source-type: git
+    source-tag: v1.4.3
