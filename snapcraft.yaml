@@ -41,6 +41,8 @@ parts:
   protoc-gen-go:
     plugin: go
     go-channel: latest/stable
-    source: https://github.com/golang/protobuf.git
+    source: https://github.com/protocolbuffers/protobuf-go
     source-type: git
-    source-tag: v1.4.3
+    source-tag: v1.25.0
+    stage:
+      - bin/protoc-gen-go
