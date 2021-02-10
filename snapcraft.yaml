@@ -18,6 +18,8 @@ apps:
       LD_LIBRARY_PATH: $SNAP_LIBRARY_PATH:$SNAP/lib:$LD_LIBRARY_PATH
   protoc-gen-go:
     command: bin/protoc-gen-go
+  protoc-gen-go-grpc:
+    command: bin/protoc-gen-go-grpc
 parts:
   protobuf:
     plugin: autotools
@@ -41,8 +43,32 @@ parts:
   protoc-gen-go:
     plugin: go
     go-channel: latest/stable
-    source: https://github.com/protocolbuffers/protobuf-go
+    source: ignored
     source-type: git
-    source-tag: v1.25.0
+    override-pull: |
+      go get -d -u google.golang.org/protobuf/cmd/protoc-gen-go
+    override-build: |
+      go get google.golang.org/protobuf/cmd/protoc-gen-go
     stage:
       - bin/protoc-gen-go
+  protoc-gen-go-grpc:
+    plugin: go
+    go-channel: latest/stable
+    source: ignored
+    source-type: git
+    override-pull: |
+      go get -d -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
+    override-build: |
+      go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+    stage:
+      - bin/protoc-gen-go-grpc
+
+    # source: https://github.com/grpc/grpc-go
+    # source-type: git
+    # source-tag: cmd/protoc-gen-go-grpc/v1.1.0
+    # stage:
+    #   - bin/protoc-gen-go-grpc
+    # override-build: |
+    #   env
+    #   snapcraftctl build
+
